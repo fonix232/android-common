@@ -1,0 +1,20 @@
+buildscript {
+    apply from: 'versions.gradle'
+    addRepos(repositories)
+    dependencies {
+        classpath deps.gradle.build
+        classpath deps.gradle.kotlin
+        classpath deps.gradle.android_maven
+    }
+    repositories {
+        google()
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
