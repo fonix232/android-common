@@ -10,10 +10,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import me.fonix232.common.BR
 
-abstract class BaseViewHolder<T: Any, out B: ViewDataBinding>(internal val binding: B, internal val onClick: (View, T) -> Unit): RecyclerView.ViewHolder(binding.root) {
+abstract class BaseViewHolder<T : Any, out B : ViewDataBinding>(
+    internal val binding: B,
+    internal val onClick: (View, T) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
-    internal var data: T? = null
+    var data: T? = null
 
     init {
         itemView.setOnClickListener { onClick(itemView, data!!) }
@@ -21,14 +25,17 @@ abstract class BaseViewHolder<T: Any, out B: ViewDataBinding>(internal val bindi
 
     open fun bind(data: T?) {
         this.data = data!!
+        binding.setVariable(BR.data, data)
+        binding.executePendingBindings()
     }
 }
 
-abstract class BaseAdapter<T: Any, B: ViewDataBinding, VH: BaseViewHolder<T, B>>(
+abstract class BaseAdapter<T : Any, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(
     internal val items: LiveData<List<T>>,
     internal val owner: LifecycleOwner,
     @LayoutRes internal val layout: Int,
-    internal val onClick: (View, T) -> Unit): RecyclerView.Adapter<VH>() {
+    internal val onClick: (View, T) -> Unit
+) : RecyclerView.Adapter<VH>() {
 
     init {
         this.items.observe(owner, Observer { notifyDataSetChanged() })
@@ -44,5 +51,6 @@ abstract class BaseAdapter<T: Any, B: ViewDataBinding, VH: BaseViewHolder<T, B>>
 
     internal fun getItem(position: Int): T? = items.value?.get(position)
 
-    internal fun inflate(parent: ViewGroup): B = DataBindingUtil.inflate(LayoutInflater.from(parent.context), layout, parent, false)
+    internal fun inflate(parent: ViewGroup): B =
+        DataBindingUtil.inflate(LayoutInflater.from(parent.context), layout, parent, false)
 }

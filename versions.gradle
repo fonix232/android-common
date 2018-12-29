@@ -31,6 +31,10 @@ gradle.objectbox = "io.objectbox:objectbox-gradle-plugin:$versions.objectbox"
 gradle.android_maven = "com.github.dcendents:android-maven-gradle-plugin:2.1"
 deps.gradle = gradle
 
+def databinding = [:]
+databinding.compiler = "com.android.databinding:compiler:$versions.build_gradle"
+deps.databinding = databinding
+
 def kotlin = [:]
 kotlin.stdlib_7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 kotlin.stdlib_8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"

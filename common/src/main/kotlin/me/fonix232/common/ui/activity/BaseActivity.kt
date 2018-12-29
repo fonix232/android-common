@@ -5,21 +5,28 @@ import android.os.PersistableBundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
+import me.fonix232.common.BR
 import me.fonix232.common.viewmodel.BaseViewModel
 import me.fonix232.common.bind
 import org.koin.androidx.viewmodel.ext.android.viewModelByClass
 import org.koin.standalone.KoinComponent
 import kotlin.reflect.KClass
 
-abstract class AutoActivity<B: ViewDataBinding>(@LayoutRes layout: Int): AppCompatActivity() {
-    val binding: B by bind(layout)
+abstract class AutoActivity<B : ViewDataBinding>(@LayoutRes layout: Int) : AppCompatActivity() {
+    internal val binding: B by bind(layout, ::afterBind)
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    open fun afterBind(binding: B) {
         binding.setLifecycleOwner(this)
     }
 }
 
-abstract class BaseActivity<VM: BaseViewModel, B: ViewDataBinding>(vmClass: KClass<VM>, @LayoutRes layout: Int): AutoActivity<B>(layout), KoinComponent {
+abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(vmClass: KClass<VM>, @LayoutRes layout: Int) :
+    AutoActivity<B>(layout), KoinComponent {
     val viewModel: VM by viewModelByClass(vmClass)
+
+    override fun afterBind(binding: B) {
+        super.afterBind(binding)
+        //binding!!.setVariable(BR.viewmodel, viewModel)
+    }
 }
