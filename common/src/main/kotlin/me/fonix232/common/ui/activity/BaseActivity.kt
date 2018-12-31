@@ -24,7 +24,7 @@ abstract class AutoActivity<B : ViewDataBinding>(@LayoutRes layout: Int) : AppCo
 
 abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(vmClass: KClass<VM>, @LayoutRes layout: Int) :
     AutoActivity<B>(layout), KoinComponent {
-    val viewModel: VM by viewModelByClass(vmClass)
+    internal val viewModel: VM by viewModelByClass(vmClass)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,10 +15,10 @@ import org.koin.standalone.KoinComponent
 import kotlin.reflect.KClass
 
 abstract class AutoFragment<B : ViewDataBinding>(@LayoutRes private val layout: Int) : Fragment() {
-    private lateinit var binding: B
+    internal lateinit var binding: B
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        bind<B>(layout, inflater, container, ::afterBind).root
+        bind(layout, inflater, container, ::afterBind).root
 
     open fun afterBind(binding: B) {
         this.binding = binding
@@ -28,7 +28,7 @@ abstract class AutoFragment<B : ViewDataBinding>(@LayoutRes private val layout: 
 
 abstract class BaseFragment<VM : BaseViewModel, B : ViewDataBinding>(vmClass: KClass<VM>, @LayoutRes layout: Int) :
     AutoFragment<B>(layout), KoinComponent {
-    private val viewModel: VM by viewModelByClass(vmClass)
+    internal val viewModel: VM by viewModelByClass(vmClass)
 
     override fun afterBind(binding: B) {
         super.afterBind(binding)
