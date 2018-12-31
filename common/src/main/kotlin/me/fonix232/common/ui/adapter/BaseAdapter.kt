@@ -49,8 +49,8 @@ abstract class BaseAdapter<T : Any, B : ViewDataBinding, VH : BaseViewHolder<T, 
     // TODO: Add this to subclass with proper VH instance creation
     // override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = VH(inflate(parent), onClick)
 
-    internal fun getItem(position: Int): T? = items.value?.get(position)
+    protected open fun getItem(position: Int): T? = items.value?.get(position)
 
-    internal fun inflate(parent: ViewGroup): B =
+    protected open fun inflate(parent: ViewGroup): B =
         DataBindingUtil.inflate(LayoutInflater.from(parent.context), layout, parent, false)
 }

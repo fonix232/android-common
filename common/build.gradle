@@ -32,10 +32,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
     implementation deps.kotlin.stdlib_8
 
