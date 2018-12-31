@@ -6,5 +6,5 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
 abstract class BaseViewModel: ViewModel(), KoinComponent {
-    val context: Context by inject()
+    protected val context: Context by inject()
 }

@@ -14,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModelByClass
 import org.koin.standalone.KoinComponent
 import kotlin.reflect.KClass
 
-abstract class AutoFragment<B : ViewDataBinding>(@LayoutRes private val layout: Int) : Fragment() {
+abstract class AutoFragment<B : ViewDataBinding>(@LayoutRes protected val layout: Int) : Fragment() {
     protected lateinit var binding: B
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

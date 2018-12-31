@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModelByClass
 import org.koin.standalone.KoinComponent
 import kotlin.reflect.KClass
 
-abstract class AutoActivity<B : ViewDataBinding>(@LayoutRes layout: Int) : AppCompatActivity() {
+abstract class AutoActivity<B : ViewDataBinding>(@LayoutRes protected val layout: Int) : AppCompatActivity() {
     protected val binding: B by bind(layout)
 
     override fun onCreate(savedInstanceState: Bundle?) {

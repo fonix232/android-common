@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import me.fonix232.common.BR
 
 abstract class BaseViewHolder<T : Any, out B : ViewDataBinding>(
-    internal val binding: B,
-    internal val onClick: (View, T) -> Unit
+    protected val binding: B,
+    protected val onClick: (View, T) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     var data: T? = null
@@ -31,10 +31,10 @@ abstract class BaseViewHolder<T : Any, out B : ViewDataBinding>(
 }
 
 abstract class BaseAdapter<T : Any, B : ViewDataBinding, VH : BaseViewHolder<T, B>>(
-    internal val items: LiveData<List<T>>,
-    internal val owner: LifecycleOwner,
-    @LayoutRes internal val layout: Int,
-    internal val onClick: (View, T) -> Unit
+    protected val items: LiveData<List<T>>,
+    protected val owner: LifecycleOwner,
+    @LayoutRes protected val layout: Int,
+    protected val onClick: (View, T) -> Unit
 ) : RecyclerView.Adapter<VH>() {
 
     init {
