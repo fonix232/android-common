@@ -14,7 +14,7 @@ import org.koin.standalone.KoinComponent
 import kotlin.reflect.KClass
 
 abstract class AutoActivity<B : ViewDataBinding>(@LayoutRes layout: Int) : AppCompatActivity() {
-    internal val binding: B by bind(layout)
+    protected val binding: B by bind(layout)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ abstract class AutoActivity<B : ViewDataBinding>(@LayoutRes layout: Int) : AppCo
 
 abstract class BaseActivity<VM : BaseViewModel, B : ViewDataBinding>(vmClass: KClass<VM>, @LayoutRes layout: Int) :
     AutoActivity<B>(layout), KoinComponent {
-    internal val viewModel: VM by viewModelByClass(vmClass)
+    protected val viewModel: VM by viewModelByClass(vmClass)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
