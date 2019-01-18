@@ -8,6 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import me.fonix232.common.db.UpsertDao
+
+fun <T> UpsertDao<T>.upsertAll(entities: Iterable<T>) = entities.forEach { upsert(it) }
 
 fun <T : ViewDataBinding> Activity.bind(@LayoutRes layout: Int, afterBind: (T) -> Unit = {}) = lazy {
     (DataBindingUtil.setContentView(this, layout) as T).also { afterBind(it) }

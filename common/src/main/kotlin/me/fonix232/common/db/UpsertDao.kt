@@ -28,6 +28,5 @@ interface UpsertDao<T> {
         }
     }
 
-    fun upsertAll(entities: Iterable<T>?) = entities?.forEach { upsert(it) }
     fun deleteAll()
 }
