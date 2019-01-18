@@ -46,6 +46,7 @@ dependencies {
     implementation deps.androidx.lifecycle.common_java8
 
     implementation deps.androidx.room.runtime
+    implementation deps.androidx.room.rxjava2
     kapt deps.androidx.room.compiler
 
     implementation deps.koin.viewmodelx
